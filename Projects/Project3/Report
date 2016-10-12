@@ -1,0 +1,115 @@
+a.
+In the function "bool is RouteWellFormed(string route)", I defined "int numberofDigits = 0" in 
+the for loop mistakenly and "numberofDigits" will always assigned to 0 when a new character come 
+in. So it will never calculate the correct number of digits in the string route.
+
+b.
+bool isRouteWellFormed(string route)
+	if route is an empty string, 
+		return true
+	if route start with an letter, 
+		repeatedly:
+			find character in the string route
+			if it is a digit,
+				increment number of digits
+			if it is a letter,
+				set number of digits to zero
+				if it is not N, S, W or E,
+					return false
+			if it is neither a digit nor a letter,
+				return false
+			if the number of digits is bigger or equal to 3
+				return false
+		if it get out of the loop successfully,
+			return true
+	if route does not start with a letter,
+		return false
+
+2.int navigateSegment(int r, int c, char dir, int maxSteps)
+	if the position(r,c) is not a valid empty grid position,
+		return -1
+	if dir is not a valid direction character,
+		return -1
+	if maxSteps is negative, 
+		return -1
+	if dir is ’N’ or ’S’ or ’W’ or ‘E’,
+		increment number of valid steps repeatedly as long as the next changing (r, c) is a valid empty grid position
+	if the number of valid steps is smaller than the maxSteps,
+		set maxSteps to the number of valid steps
+	return maxSteps
+
+3. int navigateRoute(int sr, int sc, int er, int ec, string route, int& nsteps)
+	if the start position(r,c) and the end position(r,c) is not a valid empty grid position or the route is not syntactically valid navigable route
+		return 2
+	repeatedly
+		find character in the string route
+			if it is a letter
+				if the next character of it is a digit
+					set g to the number of the next character holds
+					if the next character of the next character of it is also a digit
+						calculate the two-digit number and set h to it											
+						calculate the valid steps of this route segment
+						calculate the position of each step
+							if the is a wall,
+								set nsteps to number of valid steps
+								return 3
+					calculate the valid steps of this route segment
+					calculate the position of each step
+						if the is a wall,
+							set nsteps to number of valid steps
+							return 3
+				if the next character of it is a letter
+					calculate the valid steps of this route segment
+					calculate the position of each step
+						if the is a wall,
+							set nsteps to number of valid steps
+							return 3
+	set nsteps to the number of valid steps
+	return 0 if the position of (r,c) is the same as the ending position(r,c), or return 1
+
+c.
+1.
+assert(!isRouteWellFormed("n554W2eN3"));       //there are 3 digits after a letter
+assert(isRouteWellFormed("n2e1"));
+assert(!isRouteWellFormed("e1x"));             //letters that are not lower or upper case of N,S,W,E
+assert(!isRouteWellFormed("1n2nm2"));          //route starts with a digit
+assert(!isRouteWellFormed("n5W2e345N3"));      //there are 3 digits after a letter
+assert(!isRouteWellFormed("B23m12n3mght"));    //letters that are not lower or upper case of N,S,W,E
+assert(!isRouteWellFormed("n23,n12,n87"));     //contains character that is neither digit nor letter
+assert(!isRouteWellFormed("w2+n3"));           //contains character that is neither digit nor letter
+assert(!isRouteWellFormed("N144"));            //there are 3 digits after a letter
+assert(!isRouteWellFormed("3SN"));             //route starts with a digit
+assert(isRouteWellFormed(""));                 //empty string
+assert(!isRouteWellFormed("G23h12"));          //letters that are not lower or upper case of N,S,W,E
+assert(!isRouteWellFormed("W123s12"));         //there are 3 digits after a letter
+assert(isRouteWellFormed("e0s12w03e2"));
+
+2.
+assert(navigateSegment(3, 1, 'N', 2) == 2);
+assert(navigateSegment(0, 1, 'N', 2) == -1);           //r is not valid
+assert(navigateSegment(1, -1, 'W', 2) == -1);          //c is not valid
+assert(navigateSegment(1, 2, 'w', 3) == 1);            //out of the range, valid step is 1
+assert(navigateSegment(1, 2, 'g', 3) == -1);           //dir is not valid
+assert(navigateSegment(1, 7, 'w', 3) == -1);           //c is not valid
+assert(navigateSegment(7, 2, 'w', 3) == -1);           //r is not valid
+assert(navigateSegment(3, 1, 's', -5) == -1);          //maxsteps is negative
+assert(navigateSegment(2, 2, 'n', 1) == -1);           //(r,c)is wall
+assert(navigateSegment(1, 3, 'W', 3) == 2);            //out of the range, valid steps are 2 
+assert(navigateSegment(1, 3, 'E', 1) == 0);            //wall in he route, valid step is 0
+assert(navigateSegment(1, 3, 'S', 2) == 2);
+assert(navigateSegment(1, 3, 'n', 3) == 0);            //out of the range, valid step is 0
+assert(navigateSegment(2, 4, 'w', 3) == 1);            //wall in the route, valid step is 1
+assert(navigateSegment(2, 4, 'S', 2) == 1);            //out of the range, valid step is 1
+assert(navigateSegment(2, 4, 'n', 4) == 0);            //wall int the route, valid step is 0
+assert(navigateSegment(2, 1, 'n', 2) == 1);	           //out of the range,valid step is 1				
+3.
+assert(navigateRoute(3,1, 3,4, "N2eE02n0s2e1", len) == 3  &&  len == 4);//moving to wall
+assert(navigateRoute(3,1, 2,3, "N2eE01n0", len) == 1  &&  len == 4);//not ends up at (er,ec)
+assert(navigateRoute(3,1, 3,4, "e1x", len) == 2  &&  len == -999);//route is not valid
+assert(navigateRoute(3,1, 3,4, "N2eE01n0s2e1", len) == 0  &&  len == 7);//ends up at (er,ec)
+assert(navigateRoute(3,1, 3,4, "w3+e4", len) == 2  &&  len == -999);//route is not valid
+assert(navigateRoute(2,2, 3,4, "N2eE01n0s2e1", len) == 2  &&  len == -999);//(sr,sc)is not valid
+assert(navigateRoute(3,1, 3,4, "N2eE01n0s3e1", len) == 3  &&  len == 6);//running off the edge
+assert(navigateRoute(3,1, 1,4, "N2eE01n0s2e1", len) == 2  &&  len == -999);//(er,ec)is not valid
+assert(navigateRoute(2,1, 3,4, "NeE01n0s2e1", len) == 0  &&  len == 6);//ends up at (er,ec)
+assert(navigateRoute(2,1, 2,3, "e2", len) == 3  &&  len == 0);//ends up at (er,ec)	
