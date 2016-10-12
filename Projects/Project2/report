@@ -1,0 +1,14 @@
+a.
+Before I found out the logic error of this code, I wrote " if (premiumItem != "y" || premiumItem != "n") " instead of " if (premiumItem != "y" && premiumItem != "n") " and when I typed in any character for the question of premium item, including "y" and "n", the program would output "You must enter y or n."
+    
+b.
+Negative number of units sent (-897)
+Empty string of title (234, )
+Negative base price (546, hello, -12.88)
+Enter other characters for the question of Premium item (123, boom, 23.78, h)
+When the item is premium and u<=400 (267, we, 19.87, y) 
+When the item is not premium and u<=400 (400, hi, 13.76, n)
+When the item is premium and 400<u<=1200 (1200, lol, 34.24, y) 
+When the item is not premium and 400<u<=1200 (459, up, 34.98, n)
+When the item is premium and 1200<u (47888, jump, 12.78, y)
+When the item is not premium and 1200<u (3000, kill, 56.877, n)
