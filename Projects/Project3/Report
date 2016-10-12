@@ -101,7 +101,8 @@ assert(navigateSegment(1, 3, 'n', 3) == 0);            //out of the range, valid
 assert(navigateSegment(2, 4, 'w', 3) == 1);            //wall in the route, valid step is 1
 assert(navigateSegment(2, 4, 'S', 2) == 1);            //out of the range, valid step is 1
 assert(navigateSegment(2, 4, 'n', 4) == 0);            //wall int the route, valid step is 0
-assert(navigateSegment(2, 1, 'n', 2) == 1);	           //out of the range,valid step is 1				
+assert(navigateSegment(2, 1, 'n', 2) == 1);	       //out of the range,valid step is 1
+
 3.
 assert(navigateRoute(3,1, 3,4, "N2eE02n0s2e1", len) == 3  &&  len == 4);//moving to wall
 assert(navigateRoute(3,1, 2,3, "N2eE01n0", len) == 1  &&  len == 4);//not ends up at (er,ec)
