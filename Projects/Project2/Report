@@ -1,5 +1,7 @@
 a.
-Before I found out the logic error of this code, I wrote " if (premiumItem != "y" || premiumItem != "n") " instead of " if (premiumItem != "y" && premiumItem != "n") " and when I typed in any character for the question of premium item, including "y" and "n", the program would output "You must enter y or n."
+Before I found out the logic error of this code, I wrote " if (premiumItem != "y" || premiumItem != "n") " 
+instead of " if (premiumItem != "y" && premiumItem != "n") " and when I typed in any character for the 
+question of premium item, including "y" and "n", the program would output "You must enter y or n."
     
 b.
 Negative number of units sent (-897)
