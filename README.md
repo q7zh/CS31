@@ -1,2 +1,2 @@
 # CS31
-Fall 2015
+Introduction to Computer Science I (Fall 2015)
